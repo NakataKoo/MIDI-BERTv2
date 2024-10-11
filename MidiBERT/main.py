@@ -115,6 +115,7 @@ def main():
                                     vocab_size = config.midi.vocab_size
         )
     elif args.model == 'distilbert':
+        print("\nBuilding DistilBERT model")
         configuration = DistilBertConfig(max_position_embeddings=args.max_seq_len, # 512
                                     position_embedding_type='relative_key_query',
                                     hidden_size=args.hs, # 768
@@ -125,7 +126,7 @@ def main():
     stdict_o = None
     print("Load Checkpoint?: "+args.load_ckpt)
     print(args.ckpt)
-    if args.load_ckpt:
+    if args.load_ckpt=="True":
         print("\nLoad Check point to restart")
         cpt = torch.load(args.ckpt)
         stdict_m = cpt['state_dict']

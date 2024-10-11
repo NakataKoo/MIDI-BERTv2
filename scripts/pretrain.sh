@@ -1,0 +1,2 @@
+export PYTHONPATH="."
+python3 MidiBERT/main.py --name=20241008_bert_restart --datasets=lmd_aligned --model=bert --load_ckpt=True --batch_size=32 --ckpt=/home/nakata/MIDI-BERT/MidiBERT/result/pretrain/20241007_bert_restart/model_best.ckpt --num_workers=16

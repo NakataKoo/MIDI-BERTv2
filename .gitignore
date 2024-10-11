@@ -4,4 +4,4 @@ __pycache__
 MidiBERT/result/
 core
 not_midis.npy
-Data/CP_data/*
+Data/CP_data/lmd_aligned.npy

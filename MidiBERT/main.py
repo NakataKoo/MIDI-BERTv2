@@ -99,7 +99,7 @@ def main():
                                     hidden_size=args.hs, # 768
                                     attn_implementation="eager",
                                     vocab_size = 800,
-                                    num_hidden_layers=args.hs
+                                    num_hidden_layers=args.num_hidden_layers
         )
     elif args.model == 'albert':
         print("\nBuilding ALBERT model")

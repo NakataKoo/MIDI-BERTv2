@@ -5,4 +5,5 @@ python3 MidiBERT/main.py \
 --model=distilbert \
 --batch_size=64 \
 --num_workers=16 \
---lr=0.1
+--lr=0.1 \
+--num_hidden_layers=6

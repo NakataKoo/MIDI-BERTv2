@@ -98,7 +98,8 @@ def main():
                                     position_embedding_type='relative_key_query',
                                     hidden_size=args.hs, # 768
                                     attn_implementation="eager",
-                                    vocab_size = 800
+                                    vocab_size = 800,
+                                    num_hidden_layers=args.hs
         )
     elif args.model == 'albert':
         print("\nBuilding ALBERT model")

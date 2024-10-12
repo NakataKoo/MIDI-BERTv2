@@ -32,6 +32,7 @@ def get_args():
     parser.add_argument('--mask_percent', type=float, default=0.15, help="Up to `valid_seq_len * target_max_percent` tokens will be masked out for prediction")
     parser.add_argument('--max_seq_len', type=int, default=512, help='all sequences are padded to `max_seq_len`')
     parser.add_argument('--hs', type=int, default=768)      # hidden state
+    parser.add_argument('--num_hidden_layers', type=int, default=768)
     parser.add_argument('--epochs', type=int, default=250, help='number of training epochs')
     parser.add_argument('--lr', type=float, default=2e-5, help='initial learning rate')
 

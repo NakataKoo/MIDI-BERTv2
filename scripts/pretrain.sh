@@ -1,9 +1,8 @@
 export PYTHONPATH="."
 python3 MidiBERT/main.py \
---name=20241008_distilbert \
+--name=20241008_bert \
 --datasets=lmd_aligned \
---model=distilbert \
+--model=bert \
 --batch_size=64 \
 --num_workers=16 \
---lr=0.1 \
 --num_hidden_layers=6

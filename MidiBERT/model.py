@@ -24,18 +24,17 @@ class MidiBert(nn.Module):
         if model_name == 'bert':
             self.bert = BertModel(bertConfig)
             self.hidden_size = bertConfig.hidden_size
+            bertConfig.d_model = bertConfig.hidden_size
             self.bertConfig = bertConfig
         elif model_name == 'albert':
             self.bert = AlbertModel(bertConfig)
-            self.hidden_size = bertConfig.embedding_size
-            self.bertConfig = bertConfig
-        elif model_name == 'roberta':
-            self.bert = RobertaModel(bertConfig)
             self.hidden_size = bertConfig.hidden_size
+            bertConfig.d_model = bertConfig.embedding_size
             self.bertConfig = bertConfig
         elif model_name == 'distilbert':
             self.bert = DistilBertModel(bertConfig)
             self.hidden_size = bertConfig.hidden_size
+            bertConfig.d_model = bertConfig.hidden_size
             self.bertConfig = bertConfig
 
         # token types: [Bar, Position, Pitch, Duration]
@@ -60,7 +59,7 @@ class MidiBert(nn.Module):
 
         # linear layer to merge embeddings from different token types 
         # 異なるトークンタイプの情報を融合するための線形層（次元をBERTのhidden_sizeに変換）
-        self.in_linear = nn.Linear(np.sum(self.emb_sizes), self.hidden_size)
+        self.in_linear = nn.Linear(np.sum(self.emb_sizes), bertConfig.d_model)
 
 
     def forward(self, input_ids, attn_mask=None, output_hidden_states=True):

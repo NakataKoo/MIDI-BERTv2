@@ -21,7 +21,7 @@ def get_args():
     parser.add_argument('--name', type=str, default='MidiBert')
 
     ### pre-train dataset ###
-    parser.add_argument("--datasets", type=str, nargs='+', default=['pop909','composer', 'pop1k7', 'ASAP', 'emopia'])
+    parser.add_argument("--datasets", type=str, nargs='+', default='lmd_aligned')
     
     ### model
     parser.add_argument("--model", type=str, default="bert")
@@ -102,25 +102,31 @@ def main():
                                     num_hidden_layers=args.num_hidden_layers
         )
     elif args.model == 'albert':
-        print("\nBuilding ALBERT model")
-        configuration = AlbertConfig(max_position_embeddings=args.max_seq_len, # 512
-                                    position_embedding_type='relative_key_query',
-                                    hidden_size=args.hs, # 768
+        print("\nBuilding ALBERT-large model")
+        configuration = AlbertConfig(attention_probs_dropout_prob=0.1,
+                                    hidden_dropout_prob=0.1,
                                     embedding_size=128,
-                                    attn_implementation="eager",
-                                    vocab_size = 800
-        )
-    elif args.model == 'roberta':
-        configuration = RobertaConfig(max_position_embeddings=args.max_seq_len, # 512
+                                    hidden_size=768,
+                                    initializer_range=0.02,
+                                    intermediate_size=3072,
+                                    max_position_embeddings=512,
+                                    num_attention_heads=12,
+                                    num_hidden_layers=12,
+                                    num_hidden_groups=1,
+                                    net_structure_type=0,
+                                    gap_size=0,
+                                    num_memory_blocks=0,
+                                    inner_group_num=1,
+                                    down_scale_factor=1,
+                                    type_vocab_size=2,
+                                    vocab_size=800,
                                     position_embedding_type='relative_key_query',
-                                    hidden_size=args.hs, # 768
-                                    vocab_size = config.midi.vocab_size
+                                    attn_implementation="eager"
         )
     elif args.model == 'distilbert':
         print("\nBuilding DistilBERT model")
         configuration = DistilBertConfig(max_position_embeddings=args.max_seq_len, # 512
-                                    position_embedding_type='relative_key_query',
-                                    hidden_size=args.hs, # 768
+                                    dim=768,
                                     vocab_size = 800
         )
     midibert = MidiBert(bertConfig=configuration, e2w=e2w, w2e=w2e, model_name=args.model)

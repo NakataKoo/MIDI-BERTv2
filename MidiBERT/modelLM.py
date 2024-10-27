@@ -36,7 +36,7 @@ class MLM(nn.Module):
     def forward(self, y):
         # feed to bert 
         y = y.hidden_states[-1]
-        
+
         # convert embeddings back to logits for prediction
         ys = []
         for i, etype in enumerate(self.e2w):

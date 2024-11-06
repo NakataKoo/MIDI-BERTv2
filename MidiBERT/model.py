@@ -33,8 +33,8 @@ class MidiBert(nn.Module):
             self.bertConfig = bertConfig
         elif model_name == 'distilbert':
             self.bert = DistilBertModel(bertConfig)
-            self.hidden_size = bertConfig.hidden_size
-            bertConfig.d_model = bertConfig.hidden_size
+            self.hidden_size = bertConfig.dim
+            bertConfig.d_model = bertConfig.dim
             self.bertConfig = bertConfig
 
         # token types: [Bar, Position, Pitch, Duration]

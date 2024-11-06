@@ -87,7 +87,7 @@ def main():
     trainset = MidiDataset(X=X_train)
     validset = MidiDataset(X=X_val) 
 
-    train_loader = DataLoader(trainset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
+    train_loader = DataLoader(trainset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True, pin_memory=True)
     print("   len of train_loader",len(train_loader))
     valid_loader = DataLoader(validset, batch_size=args.batch_size, num_workers=args.num_workers)
     print("   len of valid_loader",len(valid_loader))

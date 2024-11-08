@@ -39,7 +39,7 @@ chorder==0.1.2
 #miditoolkit==0.1.14
 #scikit_learn==0.24.2
 #torchaudio==0.9.0
-transformers==4.8.2
+transformers
 SoundFile
 tqdm
 pypianoroll

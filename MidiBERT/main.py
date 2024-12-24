@@ -7,7 +7,7 @@ import json
 import torch
 
 from torch.utils.data import DataLoader
-from transformers import BertConfig, AlbertConfig, RobertaConfig, DistilBertConfig
+from transformers import BertConfig, AlbertConfig, RobertaConfig, DistilBertConfig, ModernBertConfig
 from model import MidiBert
 from trainer import BERTTrainer
 from midi_dataset import MidiDataset
@@ -128,6 +128,14 @@ def main():
         configuration = DistilBertConfig(max_position_embeddings=args.max_seq_len, # 512
                                     dim=768,
                                     vocab_size = 800
+        )
+    elif args.model == 'modernbert':
+        print("\nBuilding ModernBERT model")
+        configuration = ModernBertConfig(max_position_embeddings=args.max_seq_len,
+                                    hidden_size=args.hs, # 768
+                                    vocab_size = 800,
+                                    pad_token_id=799,
+                                    num_attention_heads=(args.hs//64),
         )
     midibert = MidiBert(bertConfig=configuration, e2w=e2w, w2e=w2e, model_name=args.model)
     

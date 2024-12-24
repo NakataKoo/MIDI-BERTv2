@@ -4,7 +4,7 @@ import random
 
 import torch
 import torch.nn as nn
-from transformers import BertModel, AlbertModel, RobertaModel, DistilBertModel
+from transformers import BertModel, AlbertModel, RobertaModel, DistilBertModel, ModernBertModel
 
 class Embeddings(nn.Module):
     def __init__(self, n_token, d_model):
@@ -35,6 +35,11 @@ class MidiBert(nn.Module):
             self.bert = DistilBertModel(bertConfig)
             self.hidden_size = bertConfig.dim
             bertConfig.d_model = bertConfig.dim
+            self.bertConfig = bertConfig
+        elif model_name == 'modernbert':
+            self.bert = ModernBertModel(bertConfig)
+            self.hidden_size = bertConfig.hidden_size
+            bertConfig.d_model = bertConfig.hidden_size
             self.bertConfig = bertConfig
 
         # token types: [Bar, Position, Pitch, Duration]

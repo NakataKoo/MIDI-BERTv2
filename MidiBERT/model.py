@@ -4,7 +4,7 @@ import random
 
 import torch
 import torch.nn as nn
-from transformers import BertModel, AlbertModel, RobertaModel, DistilBertModel, ModernBertModel
+from transformers import BertModel, AlbertModel, RobertaModel, DistilBertModel#, ModernBertModel
 
 class Embeddings(nn.Module):
     def __init__(self, n_token, d_model):
@@ -36,6 +36,11 @@ class MidiBert(nn.Module):
             self.hidden_size = bertConfig.dim
             bertConfig.d_model = bertConfig.dim
             self.bertConfig = bertConfig
+        elif model_name == 'roberta':
+            self.bert = RobertaModel(bertConfig)
+            self.hidden_size = bertConfig.hidden_size
+            bertConfig.d_model = bertConfig.hidden_size
+            self.bertConfig = bertConfig
         elif model_name == 'modernbert':
             self.bert = ModernBertModel(bertConfig)
             self.hidden_size = bertConfig.hidden_size
@@ -53,8 +58,8 @@ class MidiBert(nn.Module):
 
         # for deciding whether the current input_ids is a <PAD> token
         self.bar_pad_word = self.e2w['Bar']['Bar <PAD>']        
-        self.mask_word_np = np.array([self.e2w[etype]['%s <MASK>' % etype] for etype in self.classes], dtype=np.long)
-        self.pad_word_np = np.array([self.e2w[etype]['%s <PAD>' % etype] for etype in self.classes], dtype=np.long)
+        self.mask_word_np = np.array([self.e2w[etype]['%s <MASK>' % etype] for etype in self.classes], dtype=np.int64)
+        self.pad_word_np = np.array([self.e2w[etype]['%s <PAD>' % etype] for etype in self.classes], dtype=np.int64)
         
         # word_emb: embeddings to change token ids into embeddings
         self.word_emb = []

@@ -25,7 +25,7 @@ class BERTTrainer:
 
         if torch.cuda.device_count() > 1 and not cpu:
             print("Use %d GPUS" % torch.cuda.device_count())
-            self.model = nn.DataParallel(self.model, device_ids=cuda_devices)
+            self.model = nn.DataParallel(self.model)
 
         self.train_data = train_dataloader
         self.valid_data = valid_dataloader

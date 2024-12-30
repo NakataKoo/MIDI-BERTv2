@@ -7,7 +7,7 @@ import json
 import torch
 
 from torch.utils.data import DataLoader
-from transformers import BertConfig, AlbertConfig, RobertaConfig, DistilBertConfig, ModernBertConfig
+from transformers import BertConfig, AlbertConfig, RobertaConfig, DistilBertConfig#, ModernBertConfig
 from model import MidiBert
 from trainer import BERTTrainer
 from midi_dataset import MidiDataset
@@ -42,7 +42,7 @@ def get_args():
     
     ### cuda ###
     parser.add_argument("--cpu", action="store_true")   # default: False
-    parser.add_argument("--cuda_devices", type=int, nargs='+', default=[0, 1], help="CUDA device ids")
+    parser.add_argument("--cuda_devices", type=int, nargs='+', default=[12, 13, 14, 15], help="CUDA device ids")
 
     args = parser.parse_args()
 
@@ -128,6 +128,12 @@ def main():
         configuration = DistilBertConfig(max_position_embeddings=args.max_seq_len, # 512
                                     dim=768,
                                     vocab_size = 800
+        )
+    elif args.model == 'roberta':
+        print("\nBuilding RoBERTa model")
+        configuration = RobertaConfig(max_position_embeddings=args.max_seq_len,
+                                    hidden_size=args.hs, # 768
+                                    vocab_size = 800,
         )
     elif args.model == 'modernbert':
         print("\nBuilding ModernBERT model")

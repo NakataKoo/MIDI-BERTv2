@@ -1,9 +1,8 @@
 export PYTHONPATH="."
-export CUDA_VISIBLE_DEVICES="0"
+export CUDA_VISIBLE_DEVICES="12, 13, 14, 15"
 python3 MidiBERT/main.py \
---name=20241224_distilbert \
+--name=20241230_roberta \
 --datasets=lmd_aligned \
---model=distilbert \
+--model=roberta \
 --batch_size=32 \
---num_workers=4 \
---max_seq_len=1024
+--num_workers=16
